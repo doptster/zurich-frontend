@@ -9,21 +9,27 @@ import {
   Table
 } from '@/components/ui/table';
 import { Button } from '@/components/ui/button';
-import { SelectUser } from '@/lib/db';
+import { ReqresUser } from '@/lib/query';
 import { deleteUser } from './actions';
 import { useRouter } from 'next/navigation';
 
 export function UsersTable({
   users,
-  offset
+  nextPage,
+  prevPage
 }: {
-  users: SelectUser[];
-  offset: number | null;
+  users: ReqresUser[];
+  nextPage: number | null;
+  prevPage: number | null;
 }) {
   const router = useRouter();
 
-  function onClick() {
-    router.replace(`/?offset=${offset}`);
+  function onClickNextPage() {
+    router.replace(`/?page=${nextPage}`);
+  }
+
+  function onClickPrevPage() {
+    router.replace(`/?page=${prevPage}`);
   }
 
   return (
@@ -34,7 +40,8 @@ export function UsersTable({
             <TableRow>
               <TableHead className="max-w-[150px]">Name</TableHead>
               <TableHead className="hidden md:table-cell">Email</TableHead>
-              <TableHead className="hidden md:table-cell">Username</TableHead>
+              <TableHead className="hidden md:table-cell">First Name</TableHead>
+              <TableHead className="hidden md:table-cell">Last Name</TableHead>
               <TableHead></TableHead>
             </TableRow>
           </TableHeader>
@@ -45,11 +52,20 @@ export function UsersTable({
           </TableBody>
         </Table>
       </form>
-      {offset !== null && (
+      {prevPage !== null && (
         <Button
           className="mt-4 w-40"
           variant="secondary"
-          onClick={() => onClick()}
+          onClick={() => onClickPrevPage()}
+        >
+          Previous Page
+        </Button>
+      )}
+      {nextPage !== null && (
+        <Button
+          className="mt-4 w-40"
+          variant="secondary"
+          onClick={() => onClickNextPage()}
         >
           Next Page
         </Button>
@@ -58,15 +74,16 @@ export function UsersTable({
   );
 }
 
-function UserRow({ user }: { user: SelectUser }) {
+function UserRow({ user }: { user: ReqresUser }) {
   const userId = user.id;
   const deleteUserWithId = deleteUser.bind(null, userId);
 
   return (
     <TableRow>
-      <TableCell className="font-medium">{user.name}</TableCell>
+      <TableCell className="font-medium">{user.first_name}</TableCell>
       <TableCell className="hidden md:table-cell">{user.email}</TableCell>
-      <TableCell>{user.username}</TableCell>
+      <TableCell>{user.first_name}</TableCell>
+      <TableCell>{user.last_name}</TableCell>
       <TableCell>
         <Button
           className="w-full"

@@ -1,12 +1,4 @@
-<div align="center"><strong>Next.js 14 Admin Dashboard Template</strong></div>
-<div align="center">Built with the Next.js App Router</div>
-<br />
-<div align="center">
-<a href="https://next-admin-dash.vercel.app/">Demo</a>
-<span> · </span>
-<a href="https://vercel.com/templates/next.js/admin-dashboard-tailwind-postgres-react-nextjs">Clone & Deploy</a>
-<span>
-</div>
+# NextJS Zurich Frontend
 
 ## Overview
 
@@ -30,22 +22,9 @@ During the deployment, Vercel will prompt you to create a new Postgres database.
 
 Inside the Vercel Postgres dashboard, create a table based on the schema defined in this repository.
 
-```
-CREATE TABLE users (
-  id SERIAL PRIMARY KEY,
-  email VARCHAR(255) NOT NULL,
-  name VARCHAR(255),
-  username VARCHAR(255)
-);
-```
-
-Insert a row for testing:
-
-```
-INSERT INTO users (id, email, name, username) VALUES (1, 'me@site.com', 'Me', 'username');
-```
-
 Copy the `.env.example` file to `.env` and update the values.
+Update `AUTH_GOOGLE_ID`, `AUTH_GOOGLE_SECRET` to the value your Google Console
+Generate a random secret for `AUTH_SECRET`
 
 Finally, run the following commands to start the development server:
 
@@ -54,4 +33,4 @@ pnpm install
 pnpm dev
 ```
 
-You should now be able to access the application at http://localhost:3000.
+You should now be able to access the application at http://localhost:3001.
